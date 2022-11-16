@@ -26,26 +26,32 @@
 <script setup lang="ts">
     import { ref } from "vue";
     import { useMsgStore } from "../stores/msg";
+    // 消息对象接口
     interface msgObj {
         name: string;
         content: string;
         time: string;
     }
+    // 接收表单数据的变量
     let content = ref("");
     const name = ref("游客");
+
     const store = useMsgStore();
 
     function sendMsg(): void {
-        if (content.value) {
+        // 必须输入了内容且用户名不为空
+        if (content.value && name.value) {
+            // 组装要发送的对象
             const msgObj: msgObj = {
                 name: name.value,
                 content: content.value,
                 time: Date(),
             };
             store.wsHandler(msgObj);
+            // 清空输入框
             content.value = "";
         } else {
-            alert("请输入内容");
+            alert("内容或用户名不能为空");
         }
     }
 </script>
