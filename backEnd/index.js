@@ -6,12 +6,7 @@ const msgs = [
     {
         name: "tim1",
         content: "hi",
-        time: "12:12",
-    },
-    {
-        name: "tim2",
-        content: "hi1",
-        time: "12:12",
+        time: "Wed Nov 16 2022 17:40:41 GMT+0800 (中国标准时间)",
     },
 ];
 
@@ -22,6 +17,13 @@ ws.on("connection", (socket) => {
         console.log(packet);
         msgs.push(packet);
         console.log(msgs);
-        socket.send(JSON.stringify(msgs));
+        // 收到消息之后发起广播
+        boardCast();
     });
 });
+
+const boardCast = () => {
+    ws.clients.forEach((client) => {
+        client.send(JSON.stringify(msgs));
+    });
+};

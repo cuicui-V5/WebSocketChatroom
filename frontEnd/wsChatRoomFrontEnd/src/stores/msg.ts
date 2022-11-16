@@ -11,15 +11,17 @@ export const useMsgStore = defineStore("msg", () => {
     const msgs: Ref<msgObj[]> = ref([]);
     const readyStatus = ref("连接中...");
     let ws: WebSocket;
+    // const url = "ws://180.76.112.86:1234";
+    const url = "ws://127.0.0.1:1234";
     function openWS() {
-        ws = new WebSocket("ws://127.0.0.1:1234");
+        ws = new WebSocket(url);
         ws.addEventListener("open", () => {
             console.log("ws connect is open ");
             readyStatus.value = "已连接websocket服务器";
         });
         ws.addEventListener("message", ({ data }) => {
             data = JSON.parse(data);
-            console.log(data);
+            console.log("======收到消息=====" + data);
             msgs.value = data;
         });
         ws.addEventListener("close", () => {
