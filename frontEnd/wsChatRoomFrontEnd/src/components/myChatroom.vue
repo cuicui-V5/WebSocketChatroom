@@ -1,6 +1,12 @@
 <template>
     <div class="main">
         {{ store.readyStatus }}
+        <template v-if="store.readyStatus == '已连接websocket服务器'">
+            在线用户
+            {{ store.onlineUser }}
+            消息总数
+            {{ store.msgCount }}
+        </template>
         <button
             v-if="store.readyStatus != '已连接websocket服务器'"
             @click="store.reConnect"
