@@ -11,8 +11,8 @@ export const useMsgStore = defineStore("msg", () => {
     const msgs: Ref<msgObj[]> = ref([]);
     const readyStatus = ref("连接中...");
     let ws: WebSocket;
-    // const url = "ws://180.76.112.86:1234";
-    const url = "ws://127.0.0.1:1234";
+    // const url = "ws://127.0.0.1:1234";
+    const url = "ws://180.76.112.86:1234";
     function openWS() {
         ws = new WebSocket(url);
         ws.addEventListener("open", () => {
